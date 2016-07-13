@@ -24,9 +24,6 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTypingANumber = true
         }
         
-        
-        
-        
        // print("digit = \(digit)")
     }
 
@@ -37,7 +34,6 @@ class ViewController: UIViewController {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
         print("operandStack is \(operandStack)")
-        
     }
     
     var displayValue:Double{
@@ -50,6 +46,26 @@ class ViewController: UIViewController {
         }
     }
 
-
+    //链接运算符
+    @IBAction func operate(sender: UIButton) {
+        let opertion = sender.currentTitle!
+        if userIsInTheMiddleOfTypingANumber{
+             enter()
+        }
+        switch opertion {
+        case "×": perfermOpertion {$0 * $1}
+        case "÷": perfermOpertion {$0 / $1}
+        case "+": perfermOpertion {$0 + $1}
+        case "−": perfermOpertion {$0 - $1}
+        default:break
+        }
+    }
+    
+    func perfermOpertion(opertion:(Double,Double) -> Double){
+        if operandStack.count >= 2 {
+            displayValue = opertion(operandStack.removeLast(),operandStack.removeLast())
+            enter()
+        }
+    }
 }
 
